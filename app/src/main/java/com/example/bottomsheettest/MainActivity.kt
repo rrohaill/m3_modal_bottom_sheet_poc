@@ -36,9 +36,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent(null) {
-            /*Scaffold(contentWindowInsets = WindowInsets.systemBars.union(WindowInsets.navigationBars).only(WindowInsetsSides.Horizontal)) {
-                Box(modifier = Modifier.windowInsetsPadding(WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal)))
-                {*/
             var showSheet by remember { mutableStateOf(true) }
 
             if (showSheet) {
@@ -70,9 +67,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-//                }
-//            }
-//
         }
     }
 }
@@ -80,10 +74,10 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheet(onDismiss: () -> Unit) {
-    val modalBottomSheetState = rememberModalBottomSheetState()
+    val modalBottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     ModalBottomSheet(
-        onDismissRequest = { onDismiss() },
+        onDismissRequest = onDismiss,
         sheetState = modalBottomSheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
