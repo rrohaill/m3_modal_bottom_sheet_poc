@@ -36,34 +36,29 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent(null) {
-            var showSheet by remember { mutableStateOf(true) }
-
-            if (showSheet) {
-                BottomSheet {
-                    showSheet = false
-                }
-            }
             BottomSheetTestTheme {
+                var showSheet by remember { mutableStateOf(true) }
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier
                         .fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Surface(
+                    Column(
                         modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            verticalArrangement = Arrangement.Center,
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Button(onClick = {
-                                showSheet = true
-                            }) {
-                                Text(text = "Show BottomSheet")
-                            }
+                        Button(onClick = {
+                            showSheet = true
+                        }) {
+                            Text(text = "Show BottomSheet")
                         }
+                    }
+                }
+
+                if (showSheet) {
+                    BottomSheet {
+                        showSheet = false
                     }
                 }
             }
